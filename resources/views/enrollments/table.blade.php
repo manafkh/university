@@ -3,16 +3,16 @@
         <tr>
             <th>Academicyear</th>
         <th>Examnumber</th>
-        <th>Student Id</th>
+        <th>Student email</th>
             <th colspan="3">Action</th>
         </tr>
     </thead>
     <tbody>
     @foreach($enrollments as $enrollment)
         <tr>
-            <td>{!! $enrollment->year_id !!}</td>
+            <td>{!! $enrollment->year->name !!}</td>
             <td>{!! $enrollment->ExamNumber !!}</td>
-            <td>{!! $enrollment->student_id !!}</td>
+            <td>{!! $enrollment->student->email !!}</td>
             <td>
                 {!! Form::open(['route' => ['enrollments.destroy', $enrollment->id], 'method' => 'delete']) !!}
                 <div class='btn-group'>

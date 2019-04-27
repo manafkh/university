@@ -189,32 +189,33 @@ class EnrollmentController extends AppBaseController
      */
     public function update($id, UpdateEnrollmentRequest $request)
     {
+        request()->validate([
+            'enroll_year',
+            'student_id' => [
+                'required',
+                Rule::unique('enrollments')->where(function ($query) use ($request) {
+                    return $query
+                        ->whereEnrollYear($request->enroll_year)
+                        ->whereStudentId($request->student_id);
+                }),
+            ],
+        ]);
         $enrollment = $request->all();
         $student = $this->studentRepository->find($id);
-
         $enrollment['student_id'] = $student['id'];
-
         if (empty($enrollment)) {
             Flash::error('Enrollment not found');
-
             return redirect(route('enrollments.index'));
         }
-
         $enrollment = $this->enrollmentRepository->create($enrollment);
         $course = Course::where('year_id', '=', $enrollment->year_id)->get();
-
         $enrollment->courses()->attach($course);
-
         $courseEnrollments = CourseEnrollment::all();
-
         foreach ($courseEnrollments as $courseEnrollment) {
-
             $courseEnrollment->term_id = $courseEnrollment->course->term_id;
             $courseEnrollment->save();
         }
-
         Flash::success('Enrollment updated successfully.');
-
         return redirect(route('enrollments.index'));
     }
 
@@ -305,8 +306,6 @@ class EnrollmentController extends AppBaseController
         return view('confirm')->with('con',$con);
     }
     public function PostConfirm($id ,Request $request){
-
-
         $student = Student::find($id);
         $role = Role::find(3);
         $user = User::create([
@@ -316,8 +315,5 @@ class EnrollmentController extends AppBaseController
             'password' => Hash::make($request->password),
         ]);
         return redirect('/home');
-
-
-
     }
 }

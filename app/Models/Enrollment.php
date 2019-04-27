@@ -57,6 +57,12 @@ class Enrollment extends Model
 
         return $this->belongsToMany(Course::class);
     }
+    public function year(){
+        return $this->belongsTo(Year::class);
+    }
+    public function student(){
+        return $this->belongsTo(Student::class);
+    }
 
     
 }

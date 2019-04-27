@@ -50,6 +50,9 @@ class Year extends Model
     public function course(){
         return $this->hasOne(Course::class);
     }
+    public function enrollment(){
+        return $this->hasOne(Enrollment::class);
+    }
 
     
 }
