@@ -11,6 +11,7 @@ use App\Models\Section;
 use App\Models\Year;
 use App\Repositories\SectionRepository;
 use App\Http\Controllers\AppBaseController;
+use App\Room;
 use Illuminate\Http\Request;
 use Flash;
 use Illuminate\Validation\Rule;
@@ -49,10 +50,10 @@ class SectionController extends AppBaseController
     public function create()
     {
 
-      $professor = Professor::selectRaw('id, CONCAT(first_name,"  ",last_name) as full_name')->pluck('full_name', 'id')->all();
-      $schedule = Schedule::selectRaw('id, CONCAT(day," - ",start_time," - ",end_time) as full_time')->pluck('full_time', 'id')->all();
-      $course = Course::pluck('title','id')->all();
-        return view('sections.create',compact('professor','schedule' ,'course'));
+        $professor = Professor::selectRaw('id, CONCAT(first_name,"  ",last_name) as full_name')->pluck('full_name', 'id')->all();
+        $schedule = Schedule::selectRaw('id, CONCAT(day," - ",start_time," - ",end_time) as full_time')->pluck('full_time', 'id')->all();
+        $course = Course::pluck('title', 'id')->all();
+        return view('sections.create', compact('professor', 'schedule', 'course'));
     }
 
     /**
@@ -117,7 +118,7 @@ class SectionController extends AppBaseController
 
         $section = $this->sectionRepository->find($id);
         $schedule = Schedule::selectRaw('id, CONCAT(day," - ",start_time," - ",end_time) as full_time')->pluck('full_time', 'id')->all();
-        $course = Course::pluck('title','id')->all();
+        $course = Course::pluck('title', 'id')->all();
 
         if (empty($section)) {
             Flash::error('Section not found');
@@ -125,9 +126,9 @@ class SectionController extends AppBaseController
         }
 
         return view('sections.edit')->with('section', $section)
-            ->with('schedule',$schedule)
+            ->with('schedule', $schedule)
             ->with('course', $course)
-            ->with('professor',$professor);
+            ->with('professor', $professor);
     }
 
     /**
@@ -180,19 +181,32 @@ class SectionController extends AppBaseController
 
         return redirect(route('sections.index'));
     }
-    public function weekly($id){
+
+    public function weekly($id)
+    {
         $Year = Year::find($id);
         $weekly = Section::all();
         return view('weekly.FirstYear')
-            ->with('Year',$Year)
-            ->with('weekly',$weekly);
+            ->with('Year', $Year)
+            ->with('weekly', $weekly);
     }
-    public function Year(){
+
+    public function Year()
+    {
 
         $years = Year::all();
-        return view('weekly.year')->with('years',$years);
+        return view('weekly.year')->with('years', $years);
     }
 
+    public function createRoom()
+    {
+        return view('sections.room');
+    }
 
+    public function storeRoom(Request $request)
+    {
+        $input = $request->all();
+        $room = Room::create($input);
 
+    }
 }

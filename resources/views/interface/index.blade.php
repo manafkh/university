@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Genius - Free Bootstrap 4 Template by Colorlib</title>
+    <title>Genius</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -44,7 +44,7 @@
                 <li class="nav-item"><a href="{{route('interface.blog')}}" class="nav-link">Blog</a></li>
                 <li class="nav-item"><a href="{{route('interface.event')}}" class="nav-link">Events</a></li>
                 <li class="nav-item"><a href="{{route('interface.contact')}}" class="nav-link">Contact</a></li>
-                <li class="nav-item cta"><a href="{{url('login()')}}" class="nav-link"><span>login</span></a></li>
+                <li class="nav-item cta"><a href="{{route('login')}}" class="nav-link"><span>login</span></a></li>
             </ul>
         </div>
     </div>
@@ -57,7 +57,7 @@
         <div class="row no-gutters slider-text align-items-center justify-content-center" data-scrollax-parent="true">
             <div class="col-md-8 ftco-animate text-center">
                 <h1 class="mb-4">No Nation Can Prosper In Life Without Education</h1>
-                <p><a href="#" class="btn btn-primary px-4 py-3">Apply Now</a> <a href="{{route('interface.course')}}" class="btn btn-secondary px-4 py-3">View Courses</a></p>
+                <p><a href="{{route('login') }}" class="btn btn-primary px-4 py-3">login</a> <a href="{{route('interface.course')}}" class="btn btn-secondary px-4 py-3">View Courses</a></p>
             </div>
         </div>
     </div>
@@ -115,45 +115,6 @@
                     </ul>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="ftco-footer-widget mb-4">
-                    <h2 class="ftco-heading-2">Recent Blog</h2>
-                    <div class="block-21 mb-4 d-flex">
-                        <a class="blog-img mr-4" style="background-image: url({{asset('images/image_1.jpg')}});"></a>
-                        <div class="text">
-                            <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about</a></h3>
-                            <div class="meta">
-                                <div><a href="#"><span class="icon-calendar"></span> July 12, 2018</a></div>
-                                <div><a href="#"><span class="icon-person"></span> Admin</a></div>
-                                <div><a href="#"><span class="icon-chat"></span> 19</a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="block-21 mb-4 d-flex">
-                        <a class="blog-img mr-4" style="background-image: url({{asset('images/image_2.jpg')}});"></a>
-                        <div class="text">
-                            <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about</a></h3>
-                            <div class="meta">
-                                <div><a href="#"><span class="icon-calendar"></span> July 12, 2018</a></div>
-                                <div><a href="#"><span class="icon-person"></span> Admin</a></div>
-                                <div><a href="#"><span class="icon-chat"></span> 19</a></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-2">
-                <div class="ftco-footer-widget mb-4 ml-md-4">
-                    <h2 class="ftco-heading-2">Site Links</h2>
-                    <ul class="list-unstyled">
-                        <li><a href="#" class="py-2 d-block">Home</a></li>
-                        <li><a href="#" class="py-2 d-block">About</a></li>
-                        <li><a href="#" class="py-2 d-block">Courses</a></li>
-                        <li><a href="#" class="py-2 d-block">Students</a></li>
-                        <li><a href="#" class="py-2 d-block">Video</a></li>
-                    </ul>
-                </div>
-            </div>
             <div class="col-md-3">
                 <div class="ftco-footer-widget mb-4">
                     <h2 class="ftco-heading-2">Have a Questions?</h2>
@@ -167,14 +128,7 @@
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-12 text-center">
 
-                <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                    Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
-            </div>
-        </div>
     </div>
 </footer>
 

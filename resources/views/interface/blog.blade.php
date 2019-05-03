@@ -51,12 +51,12 @@
 </nav>
 <!-- END nav -->
 
-<div class="hero-wrap hero-wrap-2" style="background-image: url('images/bg_2.jpg'); background-attachment:fixed;">
+<div class="hero-wrap hero-wrap-2" style="background-image: url({{asset('images/bg_2.jpg')}}); background-attachment:fixed;">
     <div class="overlay"></div>
     <div class="container">
         <div class="row no-gutters slider-text align-items-center justify-content-center" data-scrollax-parent="true">
             <div class="col-md-8 ftco-animate text-center">
-                <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home</a></span> <span>Course</span></p>
+                <p class="breadcrumbs"><span class="mr-2"><a href="{{route('interface.index')}}">Home</a></span> <span>Course</span></p>
                 <h1 class="mb-3 bread">Courses</h1>
             </div>
         </div>
@@ -66,108 +66,36 @@
 <section class="ftco-section">
     <div class="container">
         <div class="row d-flex">
-            <div class="col-md-4 d-flex ftco-animate">
-                <div class="blog-entry align-self-stretch">
-                    <a href="blog-single.html" class="block-20" style="background-image: url('images/image_4.jpg');">
-                    </a>
-                    <div class="text p-4 d-block">
-                        <div class="meta mb-3">
-                            <div><a href="#">August 12, 2018</a></div>
-                            <div><a href="#">Admin</a></div>
-                            <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
+                @foreach($posts as $post)
+                <div class="col-md-4 d-flex ftco-animate">
+                    <div class="blog-entry align-self-stretch">
+                        <a href="{{route('interface.blog-single', [$post->id])}}" class="block-20" style="background-image: url({{$post->photo ? $post->photo->file : null}});">
+                        </a>
+                        <div class="text p-4 d-block">
+                            <div class="meta mb-3">
+                                <div><a href="{{route('interface.blog-single', [$post->id])}}">{{$post->created_at->diffForHumans()}}</a></div>
+                                <div><a href="{{route('interface.blog-single', [$post->id])}}">{{$post->user->name}}</a></div>
+                                <div><a href="{{route('interface.blog-single', [$post->id])}}" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
+                            </div>
+                            <h3 class="heading mt-3"><a href="{{route('interface.blog-single', [$post->id])}}">{{$post->title}}</a></h3>
+                            <p>{{$post->description}}</p>
                         </div>
-                        <h3 class="heading mt-3"><a href="#">How to standout at start of your UX Career</a></h3>
-                        <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-4 d-flex ftco-animate">
-                <div class="blog-entry align-self-stretch">
-                    <a href="blog-single.html" class="block-20" style="background-image: url('images/image_2.jpg');">
-                    </a>
-                    <div class="text p-4 d-block">
-                        <div class="meta mb-3">
-                            <div><a href="#">August 12, 2018</a></div>
-                            <div><a href="#">Admin</a></div>
-                            <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
-                        </div>
-                        <h3 class="heading mt-3"><a href="#">How to standout at start of your UX Career</a></h3>
-                        <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 d-flex ftco-animate">
-                <div class="blog-entry align-self-stretch">
-                    <a href="blog-single.html" class="block-20" style="background-image: url('images/image_3.jpg');">
-                    </a>
-                    <div class="text p-4 d-block">
-                        <div class="meta mb-3">
-                            <div><a href="#">August 12, 2018</a></div>
-                            <div><a href="#">Admin</a></div>
-                            <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
-                        </div>
-                        <h3 class="heading mt-3"><a href="#">How to standout at start of your UX Career</a></h3>
-                        <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 d-flex ftco-animate">
-                <div class="blog-entry align-self-stretch">
-                    <a href="blog-single.html" class="block-20" style="background-image: url('images/image_4.jpg');">
-                    </a>
-                    <div class="text p-4 d-block">
-                        <div class="meta mb-3">
-                            <div><a href="#">August 12, 2018</a></div>
-                            <div><a href="#">Admin</a></div>
-                            <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
-                        </div>
-                        <h3 class="heading mt-3"><a href="#">How to standout at start of your UX Career</a></h3>
-                        <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 d-flex ftco-animate">
-                <div class="blog-entry align-self-stretch">
-                    <a href="blog-single.html" class="block-20" style="background-image: url('images/image_5.jpg');">
-                    </a>
-                    <div class="text p-4 d-block">
-                        <div class="meta mb-3">
-                            <div><a href="#">August 12, 2018</a></div>
-                            <div><a href="#">Admin</a></div>
-                            <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
-                        </div>
-                        <h3 class="heading mt-3"><a href="#">How to standout at start of your UX Career</a></h3>
-                        <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 d-flex ftco-animate">
-                <div class="blog-entry align-self-stretch">
-                    <a href="blog-single.html" class="block-20" style="background-image: url('images/image_6.jpg');">
-                    </a>
-                    <div class="text p-4 d-block">
-                        <div class="meta mb-3">
-                            <div><a href="#">August 12, 2018</a></div>
-                            <div><a href="#">Admin</a></div>
-                            <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
-                        </div>
-                        <h3 class="heading mt-3"><a href="#">How to standout at start of your UX Career</a></h3>
-                        <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
-                    </div>
-                </div>
-            </div>
+                    @endforeach
         </div>
+
         <div class="row mt-5">
             <div class="col text-center">
                 <div class="block-27">
                     <ul>
-                        <li><a href="#">&lt;</a></li>
-                        <li class="active"><span>1</span></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#">5</a></li>
-                        <li><a href="#">&gt;</a></li>
+                        <div class="rows">
+                            <div class="col-sm-6 col-sm-offset-5">
+
+                                {{$posts->render()}}
+
+                            </div>
+                        </div>
                     </ul>
                 </div>
             </div>
@@ -198,7 +126,7 @@
     </div>
 </section>
 
-<footer class="ftco-footer ftco-bg-dark ftco-section img" style="background-image: url(images/bg_2.jpg); background-attachment:fixed;">
+<footer class="ftco-footer ftco-bg-dark ftco-section img" style="background-image: url({{asset('images/bg_2.jpg')}}); background-attachment:fixed;">
     <div class="overlay"></div>
     <div class="container">
         <div class="row mb-5">
@@ -214,44 +142,9 @@
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="ftco-footer-widget mb-4">
-                    <h2 class="ftco-heading-2">Recent Blog</h2>
-                    <div class="block-21 mb-4 d-flex">
-                        <a class="blog-img mr-4" style="background-image: url(images/image_1.jpg);"></a>
-                        <div class="text">
-                            <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about</a></h3>
-                            <div class="meta">
-                                <div><a href="#"><span class="icon-calendar"></span> July 12, 2018</a></div>
-                                <div><a href="#"><span class="icon-person"></span> Admin</a></div>
-                                <div><a href="#"><span class="icon-chat"></span> 19</a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="block-21 mb-4 d-flex">
-                        <a class="blog-img mr-4" style="background-image: url(images/image_2.jpg);"></a>
-                        <div class="text">
-                            <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about</a></h3>
-                            <div class="meta">
-                                <div><a href="#"><span class="icon-calendar"></span> July 12, 2018</a></div>
-                                <div><a href="#"><span class="icon-person"></span> Admin</a></div>
-                                <div><a href="#"><span class="icon-chat"></span> 19</a></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
             </div>
-            <div class="col-md-2">
-                <div class="ftco-footer-widget mb-4 ml-md-4">
-                    <h2 class="ftco-heading-2">Site Links</h2>
-                    <ul class="list-unstyled">
-                        <li><a href="#" class="py-2 d-block">Home</a></li>
-                        <li><a href="#" class="py-2 d-block">About</a></li>
-                        <li><a href="#" class="py-2 d-block">Courses</a></li>
-                        <li><a href="#" class="py-2 d-block">Students</a></li>
-                        <li><a href="#" class="py-2 d-block">Video</a></li>
-                    </ul>
-                </div>
-            </div>
+
             <div class="col-md-3">
                 <div class="ftco-footer-widget mb-4">
                     <h2 class="ftco-heading-2">Have a Questions?</h2>
@@ -265,14 +158,7 @@
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-12 text-center">
 
-                <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                    Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
-            </div>
-        </div>
     </div>
 </footer>
 

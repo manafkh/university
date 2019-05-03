@@ -17,7 +17,7 @@ class checkEmploy
      */
     public function handle($request, Closure $next)
     {
-        if (Auth::user()->role_id != 2){
+        if (Auth::user()->role_id != 4){
             Flash::error('Sorry , you have no Permission to view this . ');
            return redirect('/home');
         }

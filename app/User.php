@@ -47,6 +47,9 @@ class User extends Authenticatable
         'email'=>'required|email',
 
     ];
+    public function post(){
+        return $this->hasMany(Post::class);
+    }
 
 
 }

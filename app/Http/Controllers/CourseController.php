@@ -169,7 +169,7 @@ class CourseController extends AppBaseController
             ->get();
     }
     public function ShowCourses(){
-        $courses = Course::all();
+        $courses = Course::paginate(1);
         return view('interface.course')->with('courses',$courses);
     }
 }

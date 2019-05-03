@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Genius - Free Bootstrap 4 Template by Colorlib</title>
+    <title>Genius </title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -51,12 +51,12 @@
 </nav>
 <!-- END nav -->
 
-<div class="hero-wrap hero-wrap-2" style="background-image: url('images/bg_2.jpg'); background-attachment:fixed;">
+<div class="hero-wrap hero-wrap-2" style="background-image: url({{asset('images/bg_2.jpg')}}); background-attachment:fixed;">
     <div class="overlay"></div>
     <div class="container">
         <div class="row no-gutters slider-text align-items-center justify-content-center" data-scrollax-parent="true">
             <div class="col-md-8 ftco-animate text-center">
-                <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home</a></span> <span>About</span></p>
+                <p class="breadcrumbs"><span class="mr-2"><a href="{{route('interface.index')}}">Home</a></span> <span>About</span></p>
                 <h1 class="mb-3 bread">About</h1>
             </div>
         </div>
@@ -68,7 +68,7 @@
     <div class="container">
         <div class="row d-flex">
             <div class="col-md-6 d-flex ftco-animate">
-                <div class="img img-about align-self-stretch" style="background-image: url(images/bg_3.jpg); width: 100%;"></div>
+                <div class="img img-about align-self-stretch" style="background-image: url({{asset('images/bg_3.jpg')}}); width: 100%;"></div>
             </div>
             <div class="col-md-6 pl-md-5 ftco-animate">
                 <h2 class="mb-4">Welcome to Genius University Stablished Since 1898</h2>
@@ -79,7 +79,7 @@
     </div>
 </section>
 
-<section class="ftco-section-3 img" style="background-image: url(images/bg_3.jpg);">
+<section class="ftco-section-3 img" style="background-image: url({{asset('images/bg_3.jpg')}});">
     <div class="overlay"></div>
     <div class="container">
         <div class="row d-md-flex justify-content-center">
@@ -147,7 +147,7 @@
                 <div class="carousel-testimony owl-carousel">
                     <div class="item">
                         <div class="testimony-wrap text-center">
-                            <div class="user-img mb-5" style="background-image: url(images/person_1.jpg)">
+                            <div class="user-img mb-5" style="background-image: url({{asset('images/person_1.jpg')}})">
                     <span class="quote d-flex align-items-center justify-content-center">
                       <i class="icon-quote-left"></i>
                     </span>
@@ -161,7 +161,7 @@
                     </div>
                     <div class="item">
                         <div class="testimony-wrap text-center">
-                            <div class="user-img mb-5" style="background-image: url(images/person_2.jpg)">
+                            <div class="user-img mb-5" style="background-image: url({{asset('images/person_2.jpg')}})">
                     <span class="quote d-flex align-items-center justify-content-center">
                       <i class="icon-quote-left"></i>
                     </span>
@@ -175,7 +175,7 @@
                     </div>
                     <div class="item">
                         <div class="testimony-wrap text-center">
-                            <div class="user-img mb-5" style="background-image: url(images/person_3.jpg)">
+                            <div class="user-img mb-5" style="background-image: url({{asset('images/person_3.jpg')}})">
                     <span class="quote d-flex align-items-center justify-content-center">
                       <i class="icon-quote-left"></i>
                     </span>
@@ -189,7 +189,7 @@
                     </div>
                     <div class="item">
                         <div class="testimony-wrap text-center">
-                            <div class="user-img mb-5" style="background-image: url(images/person_3.jpg)">
+                            <div class="user-img mb-5" style="background-image: url({{asset('images/person_3.jpg')}})">
                     <span class="quote d-flex align-items-center justify-content-center">
                       <i class="icon-quote-left"></i>
                     </span>
@@ -230,57 +230,18 @@
     </div>
 </section>
 
-<footer class="ftco-footer ftco-bg-dark ftco-section img" style="background-image: url(images/bg_2.jpg); background-attachment:fixed;">
+<footer class="ftco-footer ftco-bg-dark ftco-section img" style="background-image: url({{asset('images/bg_2.jpg')}}); background-attachment:fixed;">
     <div class="overlay"></div>
     <div class="container">
         <div class="row mb-5">
             <div class="col-md-3">
                 <div class="ftco-footer-widget mb-4">
-                    <h2><a class="navbar-brand" href="index.html"><i class="flaticon-university"></i>Genius <br><small>University</small></a></h2>
+                    <h2><a class="navbar-brand" href="{{route('interface.index')}}"><i class="flaticon-university"></i>Genius <br><small>University</small></a></h2>
                     <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
                     <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
                         <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
                         <li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
                         <li class="ftco-animate"><a href="#"><span class="icon-instagram"></span></a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="ftco-footer-widget mb-4">
-                    <h2 class="ftco-heading-2">Recent Blog</h2>
-                    <div class="block-21 mb-4 d-flex">
-                        <a class="blog-img mr-4" style="background-image: url(images/image_1.jpg);"></a>
-                        <div class="text">
-                            <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about</a></h3>
-                            <div class="meta">
-                                <div><a href="#"><span class="icon-calendar"></span> July 12, 2018</a></div>
-                                <div><a href="#"><span class="icon-person"></span> Admin</a></div>
-                                <div><a href="#"><span class="icon-chat"></span> 19</a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="block-21 mb-4 d-flex">
-                        <a class="blog-img mr-4" style="background-image: url(images/image_2.jpg);"></a>
-                        <div class="text">
-                            <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about</a></h3>
-                            <div class="meta">
-                                <div><a href="#"><span class="icon-calendar"></span> July 12, 2018</a></div>
-                                <div><a href="#"><span class="icon-person"></span> Admin</a></div>
-                                <div><a href="#"><span class="icon-chat"></span> 19</a></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-2">
-                <div class="ftco-footer-widget mb-4 ml-md-4">
-                    <h2 class="ftco-heading-2">Site Links</h2>
-                    <ul class="list-unstyled">
-                        <li><a href="#" class="py-2 d-block">Home</a></li>
-                        <li><a href="#" class="py-2 d-block">About</a></li>
-                        <li><a href="#" class="py-2 d-block">Courses</a></li>
-                        <li><a href="#" class="py-2 d-block">Students</a></li>
-                        <li><a href="#" class="py-2 d-block">Video</a></li>
                     </ul>
                 </div>
             </div>

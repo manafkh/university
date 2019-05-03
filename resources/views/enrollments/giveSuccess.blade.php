@@ -17,7 +17,7 @@
                     <thead>
                     <tr>
                         <th>Academicyear</th>
-                        <th>Examnumber</th>
+                        <th>enrollment Year</th>
                         <th>Student Id</th>
                         <th colspan="3">Action</th>
                     </tr>
@@ -25,12 +25,12 @@
                     <tbody>
                     @foreach($enrollments as $enrollment)
                         <tr>
-                            <td>{!! $enrollment->year_id !!}</td>
-                            <td>{!! $enrollment->ExamNumber !!}</td>
-                            <td>{!! $enrollment->student_id !!}</td>
+                            <td>{!! $enrollment->year->name !!}</td>
+                            <td>{!! $enrollment->enroll_year !!}</td>
+                            <td>{!! $enrollment->student->id !!}</td>
                             <td>
                                 <div class='btn-group'>
-                                    <a href="{!! route('enrollments.show', [$enrollment->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-eye-open"></i></a>
+                                    <a href="{!! route('enrollments.edit', [$enrollment->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-eye-open"></i></a>
                                 </div>
 
                             </td>

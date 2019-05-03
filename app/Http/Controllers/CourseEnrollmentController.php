@@ -18,6 +18,7 @@ use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
 use Flash;
 use Illuminate\Support\Facades\DB;
+use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use Response;
 
 use Maatwebsite\Excel\Facades\Excel;
@@ -202,6 +203,7 @@ class CourseEnrollmentController extends AppBaseController
     public function exportTh($id){
         $course = Course::find($id);
         $file = $course->title;
+
         return Excel::download(new ThGradeExport($id), $file .'.xlsx');
     }
 
