@@ -23,7 +23,10 @@ class Term extends Model
 
 
     public $fillable = [
-        'name'
+        'name',
+        'is_active',
+        'is_strict',
+        'next_term_id'
     ];
 
     /**

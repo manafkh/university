@@ -13,8 +13,10 @@ use App\Imports\ThGradeImport;
 use App\Models\Course;
 use App\Models\CourseEnrollment;
 use App\Models\Enrollment;
+use App\Models\Term;
 use App\Repositories\CourseEnrollmentRepository;
 use App\Http\Controllers\AppBaseController;
+use App\TermCourseStatus;
 use Illuminate\Http\Request;
 use Flash;
 use Illuminate\Support\Facades\DB;
@@ -169,11 +171,15 @@ class CourseEnrollmentController extends AppBaseController
         return redirect(route('courseEnrollments.index'));
     }
 
-    public function select_course(Request $request){
-        $courses = Course::all();
-
+    public function select_course(){
+        $activeTerm = Term::where('is_active', true)->first();
+        $courses = null;
+        if ($activeTerm->is_strict) {
+            $courses = Course::where('term_id', $activeTerm->id)->get();
+        } else {
+            $courses = Course::all();
+        }
         return view('course_enrollments.select_course')->with('courses', $courses);
-
     }
 
     public function exam($id){
@@ -209,24 +215,17 @@ class CourseEnrollmentController extends AppBaseController
 
     public function import($id)
     {
-        $data = Excel::import(new CourseEnrollmentImport($id), request()->file('file'));
-//        return collect(head( $headings))
-//            ->each(function ($row,$key)  {
-//
-//                DB::table('course_enrollment')
-//                    ->where('enrollment_id', $row[0])
-//                    ->where('course_id',$row[1])
-//                    ->where('term_id',$row[2])
-//                    ->update([
-//                        'mid_grade' => $row[3],
-//                        'th_Grade' => $row[4],
-//                        'final_Grade'=> $row[5]]);
-//            });
+        $course = Course::find($id);
+        $nextStatus = TermCourseStatus::FINAL;
+        if ($course->canUpdate($nextStatus)) {
+            Excel::import(new CourseEnrollmentImport($course, $nextStatus), request()->file('file'));
+        } else {
+            Flash::error('Course grades cant be updated');
+        }
     }
     public function importMid()
     {
         $data = Excel::toArray(new MidGradeImport, request()->file('file'));
-
 
         return collect(head($data))
             ->each(function ($row)  {
@@ -241,9 +240,8 @@ class CourseEnrollmentController extends AppBaseController
     {
         $data = Excel::toArray(new ThGradeImport, request()->file('file'));
 
-
         return collect(head($data))
-            ->each(function ($row, $course_id)  {
+            ->each(function ($row)  {
 
                 DB::table('course_enrollment')
                     ->where('enrollment_id', $row[0])

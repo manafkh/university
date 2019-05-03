@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateTermRequest;
 use App\Http\Requests\UpdateTermRequest;
+use App\Models\Term;
 use App\Repositories\TermRepository;
 use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
@@ -42,7 +43,8 @@ class TermController extends AppBaseController
      */
     public function create()
     {
-        return view('terms.create');
+        $terms = Term::pluck('name', 'id')->all();
+        return view('terms.create')->with('terms',$terms);
     }
 
     /**

@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\TermCourse;
+use App\TermCourseStatus;
 use Eloquent as Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -56,23 +58,37 @@ class Course extends Model
         'year_id' => 'required'
     ];
 
-
     public function sections(){
-
         return $this->hasMany(Section::class);
     }
-    public function enrollments(){
 
+    public function enrollments(){
         return $this->belongsToMany(Enrollment::class);
     }
+
     public function year(){
         return $this->belongsTo(Year::class);
     }
-
 
     public function term(){
         return $this->belongsTO(Term::class);
     }
 
+    public function canUpdate($newStatus) {
+        return $this->GetTermCourse()->status == $newStatus - 1;
+    }
 
+    public function GetTermCourse() {
+        $currentTerm = Term::where('is_active', true)->first();
+        if ($currentTerm->is_strict) {
+            return TermCourse::where('course_id', $this->id)
+                ->where('term_id', $currentTerm->id)
+                ->where('academic_year', date('Y'))
+                ->first();
+        } else {
+            return TermCourse::where('course_id', $this->id)
+                ->where('academic_year', date('Y'))
+                ->first();
+        }
+    }
 }
