@@ -58,7 +58,7 @@
 <section class="ftco-section">
     <div class="container">
         <div class="row d-flex">
-                @foreach($posts as $post)
+            @foreach($posts as $post)
                 <div class="col-md-4 d-flex ftco-animate">
                     <div class="blog-entry align-self-stretch">
                         <a href="{{route('interface.blog-single', [$post->id])}}" class="block-20" style="background-image: url({{$post->photo ? $post->photo->file : null}});">
@@ -74,7 +74,7 @@
                         </div>
                     </div>
                 </div>
-                    @endforeach
+            @endforeach
         </div>
 
         <div class="row mt-5">
@@ -82,9 +82,7 @@
                 <div class="block-27">
                     <ul>
                         <div class="rows">
-                            <div class="col-sm-6 col-sm-offset-5">
-                                {{$posts->render()}}
-                            </div>
+
                         </div>
                     </ul>
                 </div>

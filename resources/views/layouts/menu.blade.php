@@ -26,6 +26,10 @@
         <a href="{!! route('courses.index') !!}"><i class="fa fa-edit"></i><span>Courses</span></a>
     </li>
 
+    <li class="{{ Request::is('categories*') ? 'active' : '' }}">
+        <a href="{!! route('categories') !!}"><i class="fa fa-edit"></i><span>categories</span></a>
+    </li>
+
 
 @endif
 

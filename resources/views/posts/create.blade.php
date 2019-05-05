@@ -23,6 +23,11 @@
                      {!! Form::text('title',null,['class'=>'form-control']) !!}
 
                  </div>
+                 <div class="form-group col-sm-6">
+                     {!! Form::label('category_id','category: ') !!}
+                     {!! Form::select('category_id',[''=>'Choose Categories'] + $categories,null,['class'=>'form-control']) !!}
+
+                 </div>
 
                  <div class="form-group col-sm-6">
                      {!! Form::label('photo_id','photo: ') !!}
@@ -30,7 +35,7 @@
                  </div>
 
                  <div class="form-group col-sm-6">
-                     {!! Form::label('body','Name : ') !!}
+                     {!! Form::label('body','Body : ') !!}
                      {!! Form::textarea('body',null,['class'=>'form-control','rows'=>2]) !!}
                  </div>
 

@@ -9,6 +9,8 @@
 
     <link rel="stylesheet" href="{{asset('css/open-iconic-bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{asset('css/animate.css')}}">
+    <link rel="stylesheet" href="{{asset('css/app.css')}}">
+
 
     <link rel="stylesheet" href="{{asset('css/owl.carousel.min.css')}}">
     <link rel="stylesheet" href="{{asset('css/owl.theme.default.min.css')}}">
@@ -77,59 +79,89 @@
 
 
 
-                <div class="tag-widget post-tag-container mb-5 mt-5">
-                    <div class="tagcloud">
-                        <a href="#" class="tag-cloud-link">Life</a>
-                        <a href="#" class="tag-cloud-link">Sport</a>
-                        <a href="#" class="tag-cloud-link">Tech</a>
-                        <a href="#" class="tag-cloud-link">Travel</a>
+
+
+                <!-- Comments Form -->
+                <div class="well">
+                    <h4>Leave a Comment:</h4>
+
+
+                    {!! Form::open(['method'=>'POST', 'action'=> 'CommentController@store']) !!}
+
+
+                    <input type="hidden" name="post_id" value="{{$post->id}}">
+
+
+                    <div class="form-group">
+                        {!! Form::label('body', 'Body:') !!}
+                        {!! Form::textarea('body', null, ['class'=>'form-control','rows'=>3])!!}
                     </div>
+
+                    <div class="form-group">
+                        {!! Form::submit('Submit comment', ['class'=>'btn btn-primary']) !!}
+                    </div>
+                    {!! Form::close() !!}
+
+
                 </div>
 
-                <div id="disqus_thread"></div>
-                <script>
+            @if(count($comments) > 0)
+                    <h3 class="mb-5">{{$comments->count()}} Comments</h3>
 
-                    /**
-                     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
-                     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
-                    /*
-                    var disqus_config = function () {
-                    this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
-                    this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
-                    };
-                    */
-                    (function() { // DON'T EDIT BELOW THIS LINE
-                        var d = document, s = d.createElement('script');
-                        s.src = 'https://codehacking-jrwlpb0lgh.disqus.com/embed.js';
-                        s.setAttribute('data-timestamp', +new Date());
-                        (d.head || d.body).appendChild(s);
-                    })();
-                </script>
-                <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-                <script id="dsq-count-scr" src="//codehacking-jrwlpb0lgh.disqus.com/count.js" async></script>
+                @foreach($comments as $comment)
 
+                    <!-- Comment -->
+                        <div class="pt-5 mt-5">
 
+                            <ul class="comment-list">
+                                <li class="comment">
+                                    <div class="vcard bio">
+                                        <img src="{{Auth::user()->photo->file}}" alt="Image placeholder">
+                                    </div>
+                                    <div class="comment-body">
+                                        <h3>{{$comment->author}}</h3>
+                                        <div class="meta">{{$comment->created_at->diffForHumans()}}</div>
+                                        <p>{{$comment->body}}</p>
+                                        <div class="comment-reply-container">
+                                            <button class="toggle-reply btn btn-primary pull-right">Reply</button>
+                                            <div class="comment-reply col-sm-6">
+                                                {!! Form::open(['method'=>'POST', 'action'=> 'CommentReplyController@createReply']) !!}
+                                                <div class="form-group">
+                                                    <input type="hidden" name="comment_id" value="{{$comment->id}}">
+                                                    {!! Form::label('body', 'Body:') !!}
+                                                    {!! Form::textarea('body',null, ['class'=>'form-control','rows'=>1])!!}
+                                                </div>
+                                                <div class="form-group">
+                                                    {!! Form::submit('submit', ['class'=>'btn btn-primary']) !!}
+                                                </div>
+                                                {!! Form::close() !!}
+                                            </div>
+                                        </div>
+                                    @if(count($comment->replies))
+                                        @foreach($comment->replies as $reply)
+                                            <!-- Nested Comment -->
+                                                    <ul class="children">
+                                                        <li class="comment">
+                                                            <div class="vcard bio">
+                                                                <img src="{{Auth::user()->photo->file}}" alt="Image placeholder">
+                                                            </div>
+                                                            <div class="comment-body">
+                                                                <h3>{{$comment->author}}</h3>
+                                                                <div class="meta">{{$reply->created_at->diffForHumans()}}</div>
+                                                                <p>{{$reply->body}}</p>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
 
-
-
-
-                @section('scripts')
-
-                    <script type="text/javascript">
-
-                        $(".comment-reply-container .toggle-reply").click(function (){
-
-                            $(this).next().slideDown("slow");
-
-
-
-                        });
-
-                    </script>
-
-
-                @endsection
-
+                                                <!-- End Nested Comment -->
+                                            @endforeach
+                                        @endif
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    @endforeach
+                @endif
             </div> <!-- .col-md-8 -->
             <div class="col-md-4 sidebar ftco-animate">
                 <div class="sidebar-box">
@@ -143,50 +175,28 @@
                 <div class="sidebar-box ftco-animate">
                     <div class="categories">
                         <h3>Categories</h3>
-                        <li><a href="#">Departments <span>(12)</span></a></li>
-                        <li><a href="#">Doctors <span>(22)</span></a></li>
-                        <li><a href="#">Medicine <span>(37)</span></a></li>
-                        <li><a href="#">Hospital <span>(42)</span></a></li>
-                        <li><a href="#">Cure <span>(14)</span></a></li>
-                        <li><a href="#">Health <span>(140)</span></a></li>
+                        @foreach($categories as $category)
+                        <li><a href="{{route('blog-category',[$category->id])}}">{{$category->name}} <span>{{count($category->posts)}}</span></a></li>
+                        @endforeach
                     </div>
                 </div>
 
                 <div class="sidebar-box ftco-animate">
                     <h3>Recent Blog</h3>
+                    @foreach($posts as $post)
                     <div class="block-21 mb-4 d-flex">
-                        <a class="blog-img mr-4" style="background-image: url({{asset('images/image_1.jpg')}});"></a>
+                        <a class="blog-img mr-4" style="background-image: url({{$post->photo->file}});"></a>
                         <div class="text">
-                            <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about the blind texts</a></h3>
+                            <h3 class="heading"><a href="{{route('interface.blog-single',[$post->id])}}">{{$post->title}}</a></h3>
                             <div class="meta">
-                                <div><a href="#"><span class="icon-calendar"></span> July 12, 2018</a></div>
-                                <div><a href="#"><span class="icon-person"></span> Admin</a></div>
-                                <div><a href="#"><span class="icon-chat"></span> 19</a></div>
+                                <div><a href="{{route('interface.blog-single',[$post->id])}}"><span class="icon-calendar"></span> {{$post->created_at->diffForHumans()}}</a></div>
+                                <div><a href="{{route('interface.blog-single',[$post->id])}}"><span class="icon-person"></span>{{$post->user->role_id}}</a></div>
+                                <div><a href="{{route('interface.blog-single',[$post->id])}}"><span class="icon-chat"></span> 19</a></div>
                             </div>
                         </div>
                     </div>
-                    <div class="block-21 mb-4 d-flex">
-                        <a class="blog-img mr-4" style="background-image: url({{asset('images/image_2.jpg')}});"></a>
-                        <div class="text">
-                            <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about the blind texts</a></h3>
-                            <div class="meta">
-                                <div><a href="#"><span class="icon-calendar"></span> July 12, 2018</a></div>
-                                <div><a href="#"><span class="icon-person"></span> Admin</a></div>
-                                <div><a href="#"><span class="icon-chat"></span> 19</a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="block-21 mb-4 d-flex">
-                        <a class="blog-img mr-4" style="background-image: url({{asset('images/image_3.jpg')}});"></a>
-                        <div class="text">
-                            <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about the blind texts</a></h3>
-                            <div class="meta">
-                                <div><a href="#"><span class="icon-calendar"></span> July 12, 2018</a></div>
-                                <div><a href="#"><span class="icon-person"></span> Admin</a></div>
-                                <div><a href="#"><span class="icon-chat"></span> 19</a></div>
-                            </div>
-                        </div>
-                    </div>
+                        @endforeach
+
                 </div>
 
                 <div class="sidebar-box ftco-animate">
@@ -229,8 +239,6 @@
                     </ul>
                 </div>
             </div>
-
-
 
             <div class="col-md-3">
                 <div class="ftco-footer-widget mb-4">
@@ -280,5 +288,13 @@
 <script src="{{asset('js/google-map.js')}}"></script>
 <script src="{{asset('js/main.js')}}"></script>
 
+    <script>
+
+        $(".comment-reply-container .toggle-reply").click(function(){
+
+            $(this).next().slideToggle("slow");
+        });
+
+    </script>
 </body>
 </html>

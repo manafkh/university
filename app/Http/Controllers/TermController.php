@@ -64,7 +64,6 @@ class TermController extends AppBaseController
 
         return redirect(route('terms.index'));
     }
-
     /**
      * Display the specified Term.
      *
@@ -95,14 +94,15 @@ class TermController extends AppBaseController
     public function edit($id)
     {
         $term = $this->termRepository->find($id);
-
+        $terms = Term::pluck('name', 'id')->all();
         if (empty($term)) {
             Flash::error('Term not found');
 
             return redirect(route('terms.index'));
         }
-
-        return view('terms.edit')->with('term', $term);
+        return view('terms.edit')
+            ->with('terms',$terms)
+            ->with('term', $term);
     }
 
     /**

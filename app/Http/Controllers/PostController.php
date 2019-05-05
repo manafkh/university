@@ -6,6 +6,7 @@ use App\Photo;
 use App\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Category;
 
 class PostController extends Controller
 {
@@ -14,10 +15,10 @@ class PostController extends Controller
         return view('interface.blog')->with('posts',$posts);
     }
 
-
     public function create()
     {
-        return view('posts.create');
+        $categories =Category::pluck('name','id')->all();
+        return view('posts.create')->with('categories',$categories);
     }
 
     public function store(Request $request)
@@ -39,7 +40,7 @@ class PostController extends Controller
 
         $user->post()->create($input);
 
-        return redirect('/post');
+        return redirect('interface/blog');
         //
     }
 
@@ -77,7 +78,6 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-
         $input =   $request->all();
 
         if ($file = $request->file('photo_id')){
@@ -110,5 +110,36 @@ class PostController extends Controller
         return redirect('admin/posts');
     }
 
+    public function post($id){
 
+        $post = Post::find($id);
+        $posts = Post::all();
+        $categories = Category::all();
+        $comments = $post->comments()->get();
+
+        return view('interface/blog-single')
+            ->with('posts',$posts)
+            ->with('post',$post)
+            ->with('comments',$comments)
+            ->with('categories',$categories);
+
+
+    }
+    public function createCategory(Request $request){
+        $input = $request->all();
+        Category::create($input);
+        return redirect('posts/categories');
+    }
+    public function categories()
+    {
+        $category = Category::all();
+        return view('posts/categories')->with('category',$category);
+    }
+    public function postsCategory($id){
+
+        $category = Category::find($id);
+        $posts = Post::where('category_id',$category->id)->get();
+        return view('interface/blog-category')
+            ->with('posts',$posts);
+    }
 }

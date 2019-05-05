@@ -8,7 +8,7 @@ class Comment extends Model
 {
     protected $table = 'comments';
 
-    protected $fillable = ['post_id','author','body','email'];
+    protected $fillable = ['post_id','author','photo','body','email'];
 
     public function post() {
         return $this->belongsTo(Post::class);

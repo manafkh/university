@@ -99,9 +99,7 @@ Route::group(['Middleware'=>'auth'], function () {
     });
 
 
-//    Route::get('/confirm', function () {
-//        return view('confirm');
-//    });
+
 
     Route::group(['middleware'=>'checkProfessor'], function () {
         Route::resource('lectures', 'LectureController');
@@ -126,6 +124,17 @@ Route::group(['Middleware'=>'auth'], function () {
     Route::post('/confirm/{id}', 'ProfessorController@PostConfirm')->name('confirm');
     Route::get('weekly/FirstYear/{id}','SectionController@weekly')->name('weekly.FirstYear');
     Route::get('weekly/year','SectionController@year')->name('weekly.year');
+
+    Route::resource('add/comment','CommentController');
+    Route::get('interface/blog-single/{id}','PostController@post')->name('interface.blog-single');
+    Route::post('interface/blog-single','CommentReplyController@createReply');
+    Route::post('categories','PostController@createCategory')->name('categories');
+    Route::get('categories','PostController@categories')->name('categories');
+    Route::get('blog-category/{id}','PostController@postsCategory')->name('blog-category');
+
+
+
+
 });
 
 
