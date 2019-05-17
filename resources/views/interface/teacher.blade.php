@@ -40,10 +40,10 @@
                 <li class="nav-item"><a href="{{route('interface.about')}}" class="nav-link">About</a></li>
                 <li class="nav-item"><a href="{{route('interface.course')}}" class="nav-link">Courses</a></li>
                 <li class="nav-item"><a href="{{route('interface.teacher')}}" class="nav-link">Teacher</a></li>
-                <li class="nav-item"><a href="{{route('interface.blog')}}" class="nav-link">Blog</a></li>
+                {{--<li class="nav-item"><a href="{{route('interface.blog')}}" class="nav-link">Blog</a></li>--}}
                 <li class="nav-item"><a href="{{route('interface.event')}}" class="nav-link">Events</a></li>
                 <li class="nav-item"><a href="{{route('interface.contact')}}" class="nav-link">Contact</a></li>
-                <li class="nav-item cta"><a href="{{route('interface.contact')}}" class="nav-link"><span>Apply Now!</span></a></li>
+                <li class="nav-item cta"><a href="{{route('login')}}" class="nav-link"><span>login</span></a></li>
             </ul>
         </div>
     </div>

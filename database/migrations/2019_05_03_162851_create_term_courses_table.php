@@ -1,9 +1,9 @@
 <?php
 
-use App\TermCourseStatus;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use App\Enums\TermCourseStatus;
 
 class CreateTermCoursesTable extends Migration
 {

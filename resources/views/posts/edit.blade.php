@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.app')
 
 
 
@@ -11,24 +11,24 @@
         {!! Form::model($post,['method'=>'PATCH','action'=>['PostController@update',$post->id],'files'=>true]) !!}
 
 
-        <div class="form-group">
+        <div class="form-group col-sm-6">
             {!! Form::label('title','Title: ') !!}
             {!! Form::text('title',null,['class'=>'form-control']) !!}
 
         </div>
 
-        <div class="form-group">
+        <div class="form-group col-sm-6">
             {!! Form::label('photo_id','photo: ') !!}
             {!! Form::file('photo_id',null,['class'=>'form-control','btn btn-danger']) !!}
         </div>
 
-        <div class="form-group">
+        <div class="form-group col-sm-6">
             {!! Form::label('body','Name : ') !!}
             {!! Form::textarea('body',null,['class'=>'form-control','row'=>2]) !!}
         </div>
 
 
-        <div class="form-group">
+        <div class="form-group col-sm-6">
             {!! Form::submit('Update Post',['class'=>'btn btn-primary col-sm-6']) !!}
 
         </div>
@@ -40,10 +40,10 @@
 
 
 
-        {!! Form::open(['method'=>'DELETE','action'=>['AdminPostController@destroy',$post->id],'files'=>true]) !!}
+        {!! Form::open(['method'=>'DELETE','action'=>['PostController@destroy',$post->id],'files'=>true]) !!}
 
 
-        <div class="form-group">
+        <div class="form-group col-sm-6">
             {!! Form::submit('DELETE Post',['class'=>'btn btn-danger col-sm-6']) !!}
 
         </div>
@@ -55,11 +55,11 @@
 
     <div class="row">
 
-        @include('includes.errors12')
+
     </div>
 
 
 
 
 
-@stop
+@endsection

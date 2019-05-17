@@ -61,7 +61,7 @@ class Student extends Model
         'last_name' => 'required',
         'father_name' => 'required',
         'mother_name' => 'required',
-        'phone' => 'numeric',
+        'phone' => 'numeric|max|min|',
         'email' => 'email',
     ];
 

@@ -84,9 +84,11 @@ class EnrollmentController extends AppBaseController
     public function store(Request $request)
     {
         request()->validate([
-            'first_name' => 'required',
-            'last_name' => 'required',
-            'father_name' => 'required',
+            'first_name' => 'required |max:150',
+            'last_name' => 'required |max:150',
+            'father_name' => 'required | max:150',
+            'phone' => 'numeric|max:11|min:9|',
+            'email' => 'email',
             'mother_name' => [
                 'required',
                 Rule::unique('students')->where(function ($query) use ($request) {
@@ -95,6 +97,7 @@ class EnrollmentController extends AppBaseController
                         ->whereLastName($request->last_name)
                         ->whereFatherName($request->father_name)
                         ->whereMotherName($request->mother_name);
+
                 }),
             ],
         ]);

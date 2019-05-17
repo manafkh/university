@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Notifications\PostNotification;
 use App\Photo;
 use App\Post;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Category;
@@ -39,6 +41,10 @@ class PostController extends Controller
         }
 
         $user->post()->create($input);
+        $users = User::where('id','!=',auth()->user()->id)->get();
+        if (\Notification::send($users,new PostNotification(Post::latest('id')->first()))){
+            return back();
+        }
 
         return redirect('interface/blog');
         //
@@ -66,7 +72,7 @@ class PostController extends Controller
     public function edit($id)
     {
         $post = Post::findOrFail($id);
-        return view('admin.posts.edit',compact('post'));
+        return view('posts.edit',compact('post'));
     }
 
     /**
@@ -90,9 +96,9 @@ class PostController extends Controller
             $input['photo_id'] = $photo->id;
         }
 
-        Auth::user()->post()->whereId($id)->first()->update($input);
+        $post = Auth::user()->post()->whereId($id)->first()->update($input);
 
-        return redirect('/admin/posts');
+        return redirect('interface/blog');
 
     }
 
@@ -107,7 +113,7 @@ class PostController extends Controller
         $post = Post::findOrFail($id);
         unlink(public_path() . $post->photo->file);
         $post->delete();
-        return redirect('admin/posts');
+        return redirect('interface/blog');
     }
 
     public function post($id){
@@ -136,7 +142,6 @@ class PostController extends Controller
         return view('posts/categories')->with('category',$category);
     }
     public function postsCategory($id){
-
         $category = Category::find($id);
         $posts = Post::where('category_id',$category->id)->get();
         return view('interface/blog-category')

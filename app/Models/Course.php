@@ -74,21 +74,14 @@ class Course extends Model
         return $this->belongsTO(Term::class);
     }
 
-    public function canUpdate($newStatus) {
-        return $this->GetTermCourse()->status == $newStatus - 1;
+    public function canUpdate($term, $newStatus) {
+        return $this->GetTermCourse($term)->status == $newStatus - 1;
     }
 
-    public function GetTermCourse() {
-        $currentTerm = Term::where('is_active', true)->first();
-        if ($currentTerm->is_strict) {
-            return TermCourse::where('course_id', $this->id)
-                ->where('term_id', $currentTerm->id)
-                ->where('academic_year', date('Y'))
-                ->first();
-        } else {
-            return TermCourse::where('course_id', $this->id)
-                ->where('academic_year', date('Y'))
-                ->first();
-        }
+    public function getTermCourse($term) {
+        return TermCourse::where('course_id', $this->id)
+            ->where('term_id', $term->id)
+            ->where('academic_year', date('Y'))
+            ->first();
     }
 }

@@ -43,7 +43,7 @@
                 <li class="nav-item"><a href="{{route('interface.about')}}" class="nav-link">About</a></li>
                 <li class="nav-item"><a href="{{route('interface.course')}}" class="nav-link">Courses</a></li>
                 <li class="nav-item"><a href="{{route('interface.teacher')}}" class="nav-link">Teacher</a></li>
-                <li class="nav-item"><a href="{{route('interface.blog')}}" class="nav-link">Blog</a></li>
+                {{--<li class="nav-item"><a href="{{route('interface.blog')}}" class="nav-link">Blog</a></li>--}}
                 <li class="nav-item"><a href="{{route('interface.event')}}" class="nav-link">Events</a></li>
                 <li class="nav-item"><a href="{{route('interface.contact')}}}" class="nav-link">Contact</a></li>
                 <li class="nav-item cta"><a href="{{route('login')}}" class="nav-link"><span>Login</span></a></li>
@@ -69,6 +69,8 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8 ftco-animate">
+                <a class="btn btn-success" href="{{route('posts.edit',[$post->id])}}"><small>Edit</small></a>
+                <a class="btn btn-danger" href="{{route('posts.destroy',[$post->id])}}"><small>Delete</small></a>
                 <h2 class="mb-3">{{$post->title}}</h2>
                 <p>{{$post->created_at->diffForHumans()}}</p>
 

@@ -89,7 +89,7 @@ Route::group(['Middleware'=>'auth'], function () {
         Route::post('course_enrollments/importTh', 'CourseEnrollmentController@importTh')->name('course_enrollments.importTh');
         Route::post('course_enrollments/importMid', 'CourseEnrollmentController@importMid')->name('course_enrollments.importMid');
         Route::resource('students', 'StudentController');
-        Route::resource('schedules', 'ScheduleController');
+
         Route::resource('enrollments', 'EnrollmentController');
         Route::resource('sections', 'SectionController');
         Route::resource('courseEnrollments', 'CourseEnrollmentController');
@@ -117,6 +117,7 @@ Route::group(['Middleware'=>'auth'], function () {
         Route::resource('courses', 'CourseController');
         Route::resource('roles', 'RoleController');
         Route::resource('employs', 'EmployController');
+        Route::resource('schedules', 'ScheduleController');
     });
     Route::get('/confirm/{id}', 'EnrollmentController@GetConfirm');
     Route::post('/confirm/{id}', 'EnrollmentController@PostConfirm')->name('confirm');
@@ -131,9 +132,15 @@ Route::group(['Middleware'=>'auth'], function () {
     Route::post('categories','PostController@createCategory')->name('categories');
     Route::get('categories','PostController@categories')->name('categories');
     Route::get('blog-category/{id}','PostController@postsCategory')->name('blog-category');
+    Route::get('posts/edit/{id}','PostController@edit')->name('posts.edit');
+    Route::PATCH('posts/edit/{id}','PostController@update')->name('posts.update');
+    Route::Delete('posts/delete/{id}','PostController@destroy')->name('posts.destroy');
 
 
-
+   Route::get('maskAsRead',function (){
+       auth()->user()->unreadNotifications->markAsRead();
+      return redirect()->back();
+   })->name('markRead');
 
 });
 

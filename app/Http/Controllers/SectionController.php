@@ -67,12 +67,17 @@ class SectionController extends AppBaseController
     {
         request()->validate([
             'schedule_id' => 'required',
+            'professor_id'=> 'required',
+            'course_id'=> 'required',
             'Room' => [
                 'required',
                 Rule::unique('sections')->where(function ($query) use ($request) {
                     return $query
                         ->whereScheduleId($request->schedule_id)
-                        ->whereRoom($request->Room);
+                        ->whereRoom($request->Room)
+                        ->whereProfessorId($request->professor_id);
+
+
                 }),
             ],
         ]);

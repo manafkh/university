@@ -16,9 +16,7 @@
             <td>
                 <div class='btn-group'>
                     <a href="{!! route('course_enrollments.exam', [$course->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-eye-open"></i></a>
-                    <a href="{!! route('course_enrollments.export', [$course->id]) !!}" class='btn btn-success btn-xs'><i class="glyphicon glyphicon-eye-open"></i>export All</a>
-                    <a href="{!! route('course_enrollments.exportMid', [$course->id]) !!}" class='btn btn-success btn-xs'><i class="glyphicon glyphicon-eye-open"></i>export Mid</a>
-                    <a href="{!! route('course_enrollments.exportTh', [$course->id]) !!}" class='btn btn-success btn-xs'><i class="glyphicon glyphicon-eye-open"></i>export TH</a>
+                    <a href="{!! route('course_enrollments.export', [$course->id]) !!}" class='btn btn-success btn-xs'><i class="glyphicon glyphicon-eye-open"></i>export</a>
 
 
 

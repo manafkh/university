@@ -9,6 +9,7 @@ use App\Models\Term;
 use App\Models\Year;
 use App\Repositories\CourseRepository;
 use App\Http\Controllers\AppBaseController;
+use App\TermCourse;
 use Illuminate\Http\Request;
 use Flash;
 use Illuminate\Support\Facades\DB;
@@ -63,6 +64,11 @@ class CourseController extends AppBaseController
         $input = $request->all();
 
         $course = $this->courseRepository->create($input);
+
+        $currentTerm = Term::currentTerm();
+
+        TermCourse::create(['course_id'=>$course->id,
+            'term_id'=>$currentTerm->id]);
 
         Flash::success('Course saved successfully.');
 

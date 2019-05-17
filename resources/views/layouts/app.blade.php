@@ -12,6 +12,7 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
 
@@ -38,7 +39,7 @@
 
             <!-- Logo -->
             <a href="#" class="logo">
-                <b>uniersity</b>
+                <b>university</b>
             </a>
 
             <!-- Header Navbar -->
@@ -50,6 +51,14 @@
                 <!-- Navbar Right Menu -->
                 <div class="navbar-custom-menu">
                     <ul class="nav navbar-nav">
+                        <li class="user-header">
+                            <a href="{{route('interface.blog')}}">
+                                <img src="{{asset('images/blog25.png')}}"
+                                     style="height:25px; width:25px; " alt=""/>
+                                <small>Blog</small>
+                            </a>
+
+                        </li>
                         <!-- User Account Menu -->
                         <li class="dropdown user user-menu">
                             <!-- Menu Toggle Button -->
@@ -87,7 +96,32 @@
                                 </li>
                             </ul>
                         </li>
+
+                        <li class="dropdown user user-menu">
+                            <!-- Menu Toggle Button -->
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-bell"></i>
+                                @if(auth()->user()->unreadnotifications->count())
+                                <span class="badge badge-light">{{auth()->user()->unreadnotifications->count() }}</span>
+                            </a>
+                            <ul class="dropdown-menu">
+
+                                <!-- The user image in the menu -->
+                                {{--@foreach(auth()->user()->unReadNotifications as $notification)--}}
+                                    {{--<li style="background-color:lightgrey "><a href="{{route('interface.blog-single',[$notification->data['post']['id']])}}">{{$notification->data['post']['title']}}</a></li>--}}
+                                {{--@endforeach--}}
+
+                                @else
+                                <!-- Menu Footer-->
+                                @foreach(auth()->user()->readNotifications as $notification)
+                                    <li><a href="#">{{$notification->data['post']['title']}}</a></li>
+                                @endforeach
+                                    @endif
+
+                            </ul>
+                        </li>
                     </ul>
+
                 </div>
             </nav>
         </header>

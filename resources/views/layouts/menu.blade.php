@@ -3,6 +3,9 @@
     <li class="{{ Request::is('years*') ? 'active' : '' }}">
         <a href="{!! route('years.index') !!}"><i class="fa fa-edit"></i><span>Years</span></a>
     </li>
+    <li class="{{ Request::is('schedules*') ? 'active' : '' }}">
+        <a href="{!! route('schedules.index') !!}"><i class="fa fa-edit"></i><span>Schedules</span></a>
+    </li>
 
     <li class="{{ Request::is('terms*') ? 'active' : '' }}">
         <a href="{!! route('terms.index') !!}"><i class="fa fa-edit"></i><span>Terms</span></a>
@@ -55,9 +58,7 @@
 
 @if(Auth::user()->role_id == 4)
 
-    <li class="{{ Request::is('schedules*') ? 'active' : '' }}">
-        <a href="{!! route('schedules.index') !!}"><i class="fa fa-edit"></i><span>Schedules</span></a>
-    </li>
+
 
     <li class="{{ Request::is('sections*') ? 'active' : '' }}">
         <a href="{!! route('sections.index') !!}"><i class="fa fa-edit"></i><span>Sections</span></a>

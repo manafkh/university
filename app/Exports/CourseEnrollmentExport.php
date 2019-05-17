@@ -11,13 +11,17 @@ use Maatwebsite\Excel\Concerns\FromView;
 use Illuminate\Contracts\View\View;
 class CourseEnrollmentExport implements FromView
 {
+    private $id;
+    private $nextStatus;
 
     /**
-    * @return \Illuminate\Support\Collection
-    */
-    public function __construct($id)
+     * @param $id
+     * @param $nextStatus
+     */
+    public function __construct($id, $nextStatus)
     {
         $this->id = $id ;
+        $this->nextStatus = $nextStatus;
     }
 
     public function view(): View
@@ -30,7 +34,8 @@ class CourseEnrollmentExport implements FromView
                 ->select(['E.ExamNumber' ,'S.first_name' ,'S.last_name' , 'S.father_name','O.term_id' ,'mid_grade','C.th_Grade','C.final_Grade'])
                 ->where('O.id','=',$this->id)
                 ->where('E.enroll_year','=',date('Y'))
-                ->get()
+                ->get(),
+            'status' => $this->nextStatus
         ]);
     }
 }

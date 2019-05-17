@@ -15,12 +15,11 @@ use App\Models\CourseEnrollment;
 use App\Models\Enrollment;
 use App\Models\Term;
 use App\Repositories\CourseEnrollmentRepository;
-use App\Http\Controllers\AppBaseController;
-use App\TermCourseStatus;
+use App\Enums\TermCourseStatus;
+use App\TermCourse;
 use Illuminate\Http\Request;
 use Flash;
 use Illuminate\Support\Facades\DB;
-use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use Response;
 
 use Maatwebsite\Excel\Facades\Excel;
@@ -47,7 +46,6 @@ class CourseEnrollmentController extends AppBaseController
     public function index(Request $request)
     {
         $courseEnrollments = $this->courseEnrollmentRepository->all();
-
         return view('course_enrollments.index')
             ->with('courseEnrollments', $courseEnrollments);
     }
@@ -172,10 +170,10 @@ class CourseEnrollmentController extends AppBaseController
     }
 
     public function select_course(){
-        $activeTerm = Term::where('is_active', true)->first();
+        $currentTerm = Term::currentTerm();
         $courses = null;
-        if ($activeTerm->is_strict) {
-            $courses = Course::where('term_id', $activeTerm->id)->get();
+        if ($currentTerm->is_strict) {
+            $courses = Course::where('term_id', $currentTerm->id)->get();
         } else {
             $courses = Course::all();
         }
@@ -198,8 +196,12 @@ class CourseEnrollmentController extends AppBaseController
      */
     public function export($id){
         $course = Course::find($id);
+        $currentTerm = Term::currentTerm();
+        $termCourse = $course->getTermCourse($currentTerm);
+
         $file = $course->title;
-        return Excel::download(new CourseEnrollmentExport($id) , $file .'.xlsx');
+        return Excel::download(new CourseEnrollmentExport($id, $termCourse->status),
+            $file .'.xlsx');
     }
     public function exportMid($id){
         $course = Course::find($id);
@@ -216,12 +218,19 @@ class CourseEnrollmentController extends AppBaseController
     public function import($id)
     {
         $course = Course::find($id);
-        $nextStatus = TermCourseStatus::FINAL;
-        if ($course->canUpdate($nextStatus)) {
-            Excel::import(new CourseEnrollmentImport($course, $nextStatus), request()->file('file'));
+        $currentTerm = Term::currentTerm();
+        $termCourse = $course->getTermCourse($currentTerm);
+        if ($termCourse->status == $currentTerm->status
+            && $termCourse->status != TermCourseStatus::FINAL) {
+            $nextStatus = $termCourse->status + 1;
+            Excel::import(new CourseEnrollmentImport($course, $termCourse,
+                $currentTerm, $nextStatus),
+                request()->file('file'));
         } else {
             Flash::error('Course grades cant be updated');
         }
+        return redirect('course_enrollments.select_course');
+
     }
     public function importMid()
     {

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\TermCourseStatus;
 use Eloquent as Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -24,7 +25,7 @@ class Term extends Model
 
     public $fillable = [
         'name',
-        'is_active',
+        'status',
         'is_strict',
         'next_term_id'
     ];
@@ -51,6 +52,8 @@ class Term extends Model
         return $this->hasOne(Course::class);
     }
 
-
+    public static function currentTerm() {
+        return Term::where('status', '!=', TermCourseStatus::FINAL)->first();
+    }
     
 }
