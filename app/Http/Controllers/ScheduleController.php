@@ -7,8 +7,10 @@ use App\Http\Requests\UpdateScheduleRequest;
 use App\Models\Schedule;
 use App\Repositories\ScheduleRepository;
 use App\Http\Controllers\AppBaseController;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Flash;
+use Illuminate\Validation\Rule;
 use Response;
 
 class ScheduleController extends AppBaseController
@@ -54,14 +56,31 @@ class ScheduleController extends AppBaseController
      *
      * @return Response
      */
-    public function store(CreateScheduleRequest $request)
+    public function store(Request $request)
     {
+        request()->validate([
+            'day'=> 'required',
+            'start_time' => 'required',
+            'end_time'=> [
+                'required',
+                function($attribute, $value, $fail) use($request) {
+                    if (Carbon::parse($value)
+                        ->lessThan(Carbon::parse($request->start_time)->addHour())) {
+                        $fail('End time must be at least 1 hour after start time');
+                    }
+                },
+//                Rule::unique('schedules')->where(function ($query) use ($request) {
+//                    return $query
+//                        ->whereDay($request->day)
+//                        ->whereStartTime($request->start_time)
+//                        ->whereEndTime($request->end_time);
+//                }),
+            ],
+        ]);
         $input = $request->all();
 
         $schedule = $this->scheduleRepository->create($input);
-
         Flash::success('Schedule saved successfully.');
-
         return redirect(route('schedules.index'));
     }
 

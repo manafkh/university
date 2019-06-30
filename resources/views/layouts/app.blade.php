@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>InfyOm Generator</title>
+    <title>Genius</title>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -108,13 +108,18 @@
 
                                 <!-- The user image in the menu -->
                                 {{--@foreach(auth()->user()->unReadNotifications as $notification)--}}
-                                    {{--<li style="background-color:lightgrey "><a href="{{route('interface.blog-single',[$notification->data['post']['id']])}}">{{$notification->data['post']['title']}}</a></li>--}}
+                                    {{--<li style="background-color:lightgrey ">--}}
+                                        {{--<a href="{{route('interface.blog-single', [$notification->data['id']])}}">--}}
+                                            {{--{{$notification->data['title']}}--}}
+
+                                        {{--</a>--}}
+                                    {{--</li>--}}
                                 {{--@endforeach--}}
 
                                 @else
                                 <!-- Menu Footer-->
                                 @foreach(auth()->user()->readNotifications as $notification)
-                                    <li><a href="#">{{$notification->data['post']['title']}}</a></li>
+                                    <li><a href="#">{{$notification->data['title']}}</a></li>
                                 @endforeach
                                     @endif
 

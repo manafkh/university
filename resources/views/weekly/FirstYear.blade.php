@@ -48,12 +48,12 @@
                 <div class="cd-schedule__top-info"><span>Sunday</span></div>
 
                 <ul>
-                    @foreach($weekly as $W)
-                        @if($W->schedule->day == 'Su' && $W->course->year_id == $Year->id)
+                    @foreach($sections as $section)
+                        @if($section->schedule->day == 'Su')
                     <li class="cd-schedule__event">
-                        <a data-start="{!! $W->schedule->start_time !!}" data-end="{{$W->schedule->end_time}}" data-content="{!! $W->course->title !!}" data-event="event-3" href="#0">
-                            <em class="cd-schedule__name">{!! $W->course->title !!}</em>
-                           <em class="cd-schedule__name">{!!  $W->Room  !!}</em>
+                        <a data-start="{!! $section->schedule->start_time !!}" data-end="{{$section->schedule->end_time}}" data-content="{!! $section->course->title !!}" data-event="event-3" href="#0">
+                            <em class="cd-schedule__name">{!! $section->course->title !!}</em>
+                           <em class="cd-schedule__name">{!!  $section->Room  !!}</em>
                         </a>
                         @endif
                     @endforeach
@@ -66,11 +66,11 @@
 
                 <ul>
 
-                    @foreach($weekly as $W)
-                        @if($W->schedule->day == 'Mo' && $W->course->year_id == $Year->id)
+                    @foreach($sections as $section)
+                        @if($section->schedule->day == 'Mo')
                             <li class="cd-schedule__event">
-                                <a data-start="{!! $W->schedule->start_time !!}" data-end="{{$W->schedule->end_time}}" data-content="{!! $W->course->title !!}" data-event="event-2" href="#0">
-                                    <em class="cd-schedule__name">{!! $W->course->title !!}</em>
+                                <a data-start="{!! $section->schedule->start_time !!}" data-end="{{$section->schedule->end_time}}" data-content="{!! $section->course->title !!}" data-event="event-2" href="#0">
+                                    <em class="cd-schedule__name">{!! $section->course->title !!}</em>
                                 </a>
                         @endif
                     @endforeach
@@ -82,11 +82,11 @@
                 <div class="cd-schedule__top-info"><span>Tuesday</span></div>
 
                 <ul>
-                    @foreach($weekly as $W)
-                        @if($W->schedule->day == 'Tu' && $W->course->year_id == $Year->id)
+                    @foreach($sections as $section)
+                        @if($section->schedule->day == 'Tu')
                             <li class="cd-schedule__event">
-                                <a data-start="{!! $W->schedule->start_time !!}" data-end="{{$W->schedule->end_time}}" data-content="{!! $W->course->title !!}" data-event="event-2" href="#0">
-                                    <em class="cd-schedule__name">{!! $W->course->title !!}</em>
+                                <a data-start="{!! $section->schedule->start_time !!}" data-end="{{$section->schedule->end_time}}" data-content="{!! $section->course->title !!}" data-event="event-2" href="#0">
+                                    <em class="cd-schedule__name">{!! $section->course->title !!}</em>
                                 </a>
                         @endif
                     @endforeach
@@ -97,11 +97,11 @@
                 <div class="cd-schedule__top-info"><span>Wednesday</span></div>
 
                 <ul>
-                    @foreach($weekly as $W )
-                        @if($W->schedule->day == 'We' && $W->course->year_id == $Year->id)
+                    @foreach($sections as $section )
+                        @if($section->schedule->day == 'We')
                             <li class="cd-schedule__event">
-                                <a data-start="{!! $W->schedule->start_time !!}" data-end="{{$W->schedule->end_time}}" data-content="{!! $W->course->title !!}" data-event="event-{{$i++}}" href="#0">
-                                    <em class="cd-schedule__name">{!! $W->course->title !!}</em>
+                                <a data-start="{!! $section->schedule->start_time !!}" data-end="{{$section->schedule->end_time}}" data-content="{!! $section->course->title !!}" data-event="event-{{$i++}}" href="#0">
+                                    <em class="cd-schedule__name">{!! $section->course->title !!}</em>
                                 </a>
                         @endif
                     @endforeach
@@ -112,11 +112,11 @@
                 <div class="cd-schedule__top-info"><span>Thursday</span></div>
 
                 <ul>
-                    @foreach($weekly as $W)
-                        @if($W->schedule->day == 'Th' && $W->course->year_id == $Year->id)
+                    @foreach($sections as $section)
+                        @if($section->schedule->day == 'Th')
                             <li class="cd-schedule__event">
-                                <a data-start="{!! $W->schedule->start_time !!}" data-end="{{$W->schedule->end_time}}" data-content="{!! $W->course->title !!}" data-event="event-2" href="#0">
-                                    <em class="cd-schedule__name">{!! $W->course->title !!}</em>
+                                <a data-start="{!! $section->schedule->start_time !!}" data-end="{{$section->schedule->end_time}}" data-content="{!! $section->course->title !!}" data-event="event-2" href="#0">
+                                    <em class="cd-schedule__name">{!! $section->course->title !!}</em>
                                 </a>
                         @endif
                     @endforeach

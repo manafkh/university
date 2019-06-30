@@ -6,19 +6,19 @@
 
 <!-- Course Id Field -->
 <div class="form-group">
-    {!! Form::label('course_id', 'Course Id:') !!}
+    {!! Form::label('course_id', 'Course :') !!}
     <p>{!! $section->course_id !!}</p>
 </div>
 
 <!-- Professor Id Field -->
 <div class="form-group">
-    {!! Form::label('professor_id', 'Professor Id:') !!}
+    {!! Form::label('professor_id', 'Professor :') !!}
     <p>{!! $section->professor_id !!}</p>
 </div>
 
 <!-- Schedule Id Field -->
 <div class="form-group">
-    {!! Form::label('schedule_id', 'Schedule Id:') !!}
+    {!! Form::label('schedule_id', 'Schedule :') !!}
     <p>{!! $section->schedule_id !!}</p>
 </div>
 

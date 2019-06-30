@@ -87,7 +87,7 @@ class EnrollmentController extends AppBaseController
             'first_name' => 'required |max:150',
             'last_name' => 'required |max:150',
             'father_name' => 'required | max:150',
-            'phone' => 'numeric|max:11|min:9|',
+            'phone' => 'required|regex:/(09)[0-9]{8}/|unique:students',
             'email' => 'email',
             'mother_name' => [
                 'required',

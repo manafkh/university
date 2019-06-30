@@ -10,16 +10,16 @@
         </thead>
         <tbody>
         @foreach($years as $year)
-            <tr>
-                <td>{!! $year->name !!}</td>
-                <td>
-                    <div class='btn-group'>
-                        <a href="{!! route('weekly.FirstYear', [$year->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-eye-open"></i></a>
-
-                    </div>
-
-                </td>
-            </tr>
+            @foreach($terms as $term)
+                <tr>
+                    <td>{{ $year->name }}, {{ $term->name }}</td>
+                    <td>
+                        <div class='btn-group'>
+                            <a href="{!! route('weekly.FirstYear', ['year_id' => $year->id, 'term_id' => $term->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-eye-open"></i></a>
+                        </div>
+                    </td>
+                </tr>
+            @endforeach
         @endforeach
         </tbody>
     </table>

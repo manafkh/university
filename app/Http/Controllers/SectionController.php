@@ -8,12 +8,14 @@ use App\Models\Course;
 use App\Models\Professor;
 use App\Models\Schedule;
 use App\Models\Section;
+use App\Models\Term;
 use App\Models\Year;
 use App\Repositories\SectionRepository;
 use App\Http\Controllers\AppBaseController;
 use App\Room;
 use Illuminate\Http\Request;
 use Flash;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 use Response;
 
@@ -50,10 +52,10 @@ class SectionController extends AppBaseController
     public function create()
     {
 
-        $professor = Professor::selectRaw('id, CONCAT(first_name,"  ",last_name) as full_name')->pluck('full_name', 'id')->all();
+       return $professor = Professor::selectRaw('id, CONCAT(first_name,"  ",last_name) as full_name')->pluck('full_name', 'id')->all();
         $schedule = Schedule::selectRaw('id, CONCAT(day," - ",start_time," - ",end_time) as full_time')->pluck('full_time', 'id')->all();
         $course = Course::pluck('title', 'id')->all();
-        return view('sections.create', compact('professor', 'schedule', 'course'));
+//        return view('sections.create', compact('professor', 'schedule', 'course'));
     }
 
     /**
@@ -67,17 +69,36 @@ class SectionController extends AppBaseController
     {
         request()->validate([
             'schedule_id' => 'required',
-            'professor_id'=> 'required',
-            'course_id'=> 'required',
+            'professor_id'=> [
+                'required',
+                Rule::unique('sections')->where(function ($query) use ($request) {
+                    return $query
+                        ->whereScheduleId($request->schedule_id)
+                        ->whereProfessorId($request->professor_id);
+                }),
+            ],
+            'course_id'=> [
+                'required',
+                function($attribute, $value, $fail) use ($request) {
+                    $course = Course::find($value);
+                    $found_course = DB::table('sections as S')
+                        ->join('courses as C','S.course_id','=','C.id')
+                        ->where('S.schedule_id', '=',
+                            $request->schedule_id)
+                        ->where('C.year_id', '=',
+                            $course->year_id)
+                        ->first();
+                    if ($found_course) {
+                        $fail('Students of a year can\'t be in two rooms at the same time.');
+                    }
+                },
+            ],
             'Room' => [
                 'required',
                 Rule::unique('sections')->where(function ($query) use ($request) {
                     return $query
                         ->whereScheduleId($request->schedule_id)
-                        ->whereRoom($request->Room)
-                        ->whereProfessorId($request->professor_id);
-
-
+                        ->whereRoom($request->Room);
                 }),
             ],
         ]);
@@ -187,20 +208,30 @@ class SectionController extends AppBaseController
         return redirect(route('sections.index'));
     }
 
-    public function weekly($id)
+    public function weekly($year_id, $term_id)
     {
-        $Year = Year::find($id);
-        $weekly = Section::all();
-        return view('weekly.FirstYear')
-            ->with('Year', $Year)
-            ->with('weekly', $weekly);
+        $sections = Section::whereHas('course', function($q) use($year_id, $term_id) {
+            $q->where('year_id', $year_id)->where('term_id', $term_id);
+        })->get();
+        return view('weekly.FirstYear', compact('sections'));
+//        $weekly = DB::table('Sections')
+//            ->join('Courses', 'Sections.id', '=', 'Courses.id')
+//            ->where('Courses.year_id', '=', $year_id)
+//            ->where('Courses.term_id', '=', $term_id)
+//            ->selectRaw('Sections.id, Sections.');
+//        return view('weekly.FirstYear')
+//            ->with('Year', $Year)
+//            ->with('weekly', $weekly);
     }
 
     public function Year()
     {
 
         $years = Year::all();
-        return view('weekly.year')->with('years', $years);
+        $terms =  Term::where('is_strict', true)->get();
+        return view('weekly.year')
+            ->with('terms', $terms)
+            ->with('years', $years);
     }
 
     public function createRoom()

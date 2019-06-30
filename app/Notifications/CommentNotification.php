@@ -43,7 +43,7 @@ class CommentNotification extends Notification
     public function toDatabase($notifiable)
     {
         return [
-            'comment'=> $this->comment,
+            'comment' => $this->comment,
         ];
     }
 }

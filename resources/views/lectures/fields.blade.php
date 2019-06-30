@@ -6,7 +6,7 @@
 
 <!-- Section Id Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('section_id', 'Section Id:') !!}
+    {!! Form::label('section_id', 'Section :') !!}
     {!! Form::select('section_id',[''=>'Choose course'] + $select , null, ['class' => 'form-control']) !!}
 </div>
 {{--<!-- Qrcode Path Field -->--}}

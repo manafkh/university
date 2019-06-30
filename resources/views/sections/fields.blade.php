@@ -1,18 +1,18 @@
 <!-- Course Id Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('course_id', 'Course Id:') !!}
+    {!! Form::label('course_id', 'Course :') !!}
     {!! Form::select('course_id',[''=>'Choose Course'] + $course , null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Professor Id Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('professor_id', 'Professor Id:') !!}
+    {!! Form::label('professor_id', 'Professor :') !!}
     {!! Form::select('professor_id',[''=>'choose Professor']+ $professor , null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Schedule Id Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('schedule_id', 'Schedule Id:') !!}
+    {!! Form::label('schedule_id', 'Schedule :') !!}
     {!! Form::select('schedule_id',[''=>'Choose Time'] + $schedule ,  null, ['class' => 'form-control']) !!}
 </div>
 

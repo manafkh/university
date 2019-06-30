@@ -70,7 +70,7 @@
                 <div class="row">
                     <div class="col-md-12 mb-5">
                         <div class="teacher-details d-md-flex">
-                            <div class="img ftco-animate" style="background-image: url(images/person_5.jpg);"></div>
+                            <div class="img ftco-animate" style="background-image: url({{asset('images/person_5.jpg')}});"></div>
                             <div class="text ftco-animate">
                                 <h3>Mary Gold</h3>
                                 <span class="position">CSE Teacher</span>
@@ -134,7 +134,7 @@
     </div>
 </section>
 
-<footer class="ftco-footer ftco-bg-dark ftco-section img" style="background-image: url(images/bg_2.jpg); background-attachment:fixed;">
+<footer class="ftco-footer ftco-bg-dark ftco-section img" style="background-image: url({{asset('images/bg_2.jpg')}}); background-attachment:fixed;">
     <div class="overlay"></div>
     <div class="container">
         <div class="row mb-5">
@@ -153,7 +153,7 @@
                 <div class="ftco-footer-widget mb-4">
                     <h2 class="ftco-heading-2">Recent Blog</h2>
                     <div class="block-21 mb-4 d-flex">
-                        <a class="blog-img mr-4" style="background-image: url(images/image_1.jpg);"></a>
+                        <a class="blog-img mr-4" style="background-image: url({{asset('images/image_1.jpg')}});"></a>
                         <div class="text">
                             <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about</a></h3>
                             <div class="meta">
@@ -164,7 +164,7 @@
                         </div>
                     </div>
                     <div class="block-21 mb-4 d-flex">
-                        <a class="blog-img mr-4" style="background-image: url(images/image_2.jpg);"></a>
+                        <a class="blog-img mr-4" style="background-image: url({{asset('images/image_2.jpg')}});"></a>
                         <div class="text">
                             <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about</a></h3>
                             <div class="meta">

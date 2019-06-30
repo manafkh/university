@@ -17,7 +17,7 @@ class checkStudent
      */
     public function handle($request, Closure $next)
     {
-        if (Auth::user()->role_id != 4){
+        if (Auth::user()->role_id != 3){
 
             Flash::error('Sorry , you have no Permission to view this . ');
             return redirect('\home');

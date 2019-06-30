@@ -123,7 +123,7 @@ Route::group(['Middleware'=>'auth'], function () {
     Route::post('/confirm/{id}', 'EnrollmentController@PostConfirm')->name('confirm');
     Route::get('/confirm/{id}', 'ProfessorController@GetConfirm');
     Route::post('/confirm/{id}', 'ProfessorController@PostConfirm')->name('confirm');
-    Route::get('weekly/FirstYear/{id}','SectionController@weekly')->name('weekly.FirstYear');
+    Route::get('weekly/FirstYear/{year_id}/{term_id}','SectionController@weekly')->name('weekly.FirstYear');
     Route::get('weekly/year','SectionController@year')->name('weekly.year');
 
     Route::resource('add/comment','CommentController');

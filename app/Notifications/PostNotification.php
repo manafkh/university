@@ -58,8 +58,7 @@ class PostNotification extends Notification
     public function toDatabase($notifiable)
     {
         return [
-            'post'=> $this->post,
-
+            $this->post,
         ];
     }
 }

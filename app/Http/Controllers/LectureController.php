@@ -9,6 +9,7 @@ use App\Http\Requests\UpdateLectureRequest;
 use App\Models\Section;
 use App\Repositories\LectureRepository;
 use App\Http\Controllers\AppBaseController;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Flash;
 use Illuminate\Support\Facades\Auth;
@@ -59,11 +60,15 @@ class LectureController extends AppBaseController
      *
      */
     public function coursesProfessor(){
+        $now = Carbon::now();
         $select = DB::table('sections as S')
             ->selectRaw('C.id,C.title ')
             ->join('courses as C','S.course_id','=','C.id')
             ->join('professors as P','S.professor_id','=','P.id')
+            ->join('schedules as SC', 'S.schedule_id', '=', 'SC.id')
             ->where('p.first_name','=',Auth::user()->name)
+            ->whereDate('SC.start_time', '<=', $now)
+            ->whereDate('SC.end_time', '>=', $now->addMinutes(15))
             ->pluck('C.title','C.id')->all();
     }
 
@@ -71,16 +76,31 @@ class LectureController extends AppBaseController
      * Show the form for creating a new Lecture.
      *
      * @return \Illuminate\Database\Query\Builder
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function create()
     {
+        $now = Carbon::now('Asia/Damascus');
+        $weekMap = [
+            0 => 'Su',
+            1 => 'Mo',
+            2 => 'Tu',
+            3 => 'We',
+            4 => 'Th',
+            5 => 'Fr',
+            6 => 'Sa',
+        ];
+        $weekday = $weekMap[$now->dayOfWeek];
         $select = DB::table('sections as S')
-            ->selectRaw('C.id,C.title ')
             ->join('courses as C','S.course_id','=','C.id')
             ->join('professors as P','S.professor_id','=','P.id')
+            ->join('schedules as SC', 'S.schedule_id', '=', 'SC.id')
             ->where('p.first_name','=',Auth::user()->name)
-            ->pluck('C.title','S.id')->all();
-       return view('lectures.create')->with('select',$select);
+            ->where('SC.day', '=', $weekday)
+            ->where('SC.start_time', '<=', $now->toTimeString())
+            ->where('SC.end_time', '>=', $now->addMinutes(15)->toTimeString())
+            ->pluck('C.title','C.id')->all();
+        return view('lectures.create')->with('select',$select);
     }
 
     /**

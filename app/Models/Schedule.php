@@ -61,8 +61,7 @@ class Schedule extends Pivot
     ];
 
 
-    public function sections(){
-
+    public function sections() {
         return $this->hasMany(Section::class);
     }
     
